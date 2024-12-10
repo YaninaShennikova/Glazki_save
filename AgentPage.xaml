@@ -34,7 +34,7 @@
             Click="RightDirButton_Click"></Button>
         </StackPanel>
 
-        <WrapPanel Orientation="Horizontal">
+        <WrapPanel Orientation="Horizontal">       
 
             <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Left">
                 <TextBox x:Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged" Width="251" FontSize="15" Margin="3"/>
