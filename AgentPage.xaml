@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Щенникова_ГлазкиСейв"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AgentPage" >
+      Title="Список агентов" FontFamily="Century Gothic" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
 
@@ -33,6 +33,11 @@
             <Button Name="RightDirButton" Content="&gt;" Width="20" Height="25"
             Click="RightDirButton_Click"></Button>
         </StackPanel>
+
+        <StackPanel  Grid.Row="3" Orientation="Horizontal">
+            <Button  Content ="Добавить" Name="AddBtn" Click="AddBtn_Click" Margin="5"></Button>
+        </StackPanel>
+
 
         <WrapPanel Orientation="Horizontal">          
 
@@ -71,8 +76,9 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="385"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
@@ -102,6 +108,10 @@
                         <TextBlock Text="{Binding MinCostForAgent}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="20" ></TextBlock>
                         <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="20" ></TextBlock>
                         <TextBlock Text="{Binding Priority, StringFormat='Приоритетность {0}'}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="16" ></TextBlock>
+
+                        <StackPanel Grid.Column="3" Grid.Row="3" Orientation="Horizontal">
+                            <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click" Margin="2"></Button>
+                        </StackPanel>
 
                     </Grid>
                 </DataTemplate>

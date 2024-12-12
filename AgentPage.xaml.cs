@@ -79,6 +79,7 @@ namespace Щенникова_ГлазкиСейв
                 p.AgentType.Title.Contains("ОАО") ||
                 p.AgentType.Title.Contains("ПАО"))).ToList();
             }
+           
             if (ComboType.SelectedIndex == 1)
             {
                 currentAgent = currentAgent.Where(p => (p.AgentType.Title.Contains("МФО"))).ToList();
@@ -104,7 +105,7 @@ namespace Щенникова_ГлазкиСейв
                 currentAgent = currentAgent.Where(p => (p.AgentType.Title.Contains("ПАО"))).ToList();
             }
 
-     
+
 
             // Обновляем источник данных для ListView
             AgentListView.ItemsSource = currentAgent;
@@ -245,6 +246,24 @@ namespace Щенникова_ГлазкиСейв
             ChangePage(0, Convert.ToInt32(PageListBox.SelectedItem.ToString()) - 1);
         }
 
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager1.MainFrame.Navigate(new AddPage((sender as Button).DataContext as Agent));
+        }
 
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                ShennikovaGlazkiSaveEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                AgentListView.ItemsSource = ShennikovaGlazkiSaveEntities.GetContext().Agent.ToList();
+                UpdateAgent();
+            }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Manager1.MainFrame.Navigate(new AddPage(null));
+        }
     }
 }
