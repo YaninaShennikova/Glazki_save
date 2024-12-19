@@ -35,7 +35,8 @@
         </StackPanel>
 
         <StackPanel  Grid.Row="3" Orientation="Horizontal">
-            <Button  Content ="Добавить" Name="AddBtn" Click="AddBtn_Click" Margin="5"></Button>
+            <Button  Content ="Добавить" Name="AddBtn" Click="AddBtn_Click" Margin="5" Width="108"></Button>
+            <Button Content="Изменить приоритет на..." Name="ChangePriorityButton" Click="ChangePriorityButton_Click" Width="257" ></Button>
         </StackPanel>
 
 
@@ -71,10 +72,10 @@
 
 
 
-        <ListView Name="AgentListView" Grid.Row="2">
+        <ListView Name="AgentListView" Grid.Row="2" SelectionChanged="AgentListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Background="{Binding FonStyle}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="385"/>
@@ -87,7 +88,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Image Width="190" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
+                        <Image Width="180" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
                             <Image.Source>
                                 <Binding Path="Logo">
                                     <Binding.TargetNullValue>
@@ -104,13 +105,28 @@
                             <TextBlock Text=" | " FontSize="20" ></TextBlock>
                             <TextBlock Text="{Binding Title}" FontSize="20"></TextBlock>
                         </StackPanel>
+
+                      
                         
-                        <TextBlock Text="{Binding MinCostForAgent}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="20" ></TextBlock>
-                        <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="20" ></TextBlock>
+                        <TextBlock Text="{Binding Phone}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" ></TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" >
+                            <TextBlock Text="Продажи за год: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding Prod}" FontSize="16"></TextBlock>
+                        </StackPanel>
+                        
                         <TextBlock Text="{Binding Priority, StringFormat='Приоритетность {0}'}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" FontSize="16" ></TextBlock>
 
                         <StackPanel Grid.Column="3" Grid.Row="3" Orientation="Horizontal">
                             <Button Content="Редактировать" Name="EditButton" Click="EditButton_Click" Margin="2"></Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Orientation="Horizontal">
+                            <TextBlock Text="Скидка" FontSize="20"></TextBlock>
+                            
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Discount}" FontSize="25"></TextBlock>
+                                <TextBlock Text=" %" FontSize="25"></TextBlock>
+                            </StackPanel>
                         </StackPanel>
 
                     </Grid>

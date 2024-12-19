@@ -14,6 +14,8 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>   
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -22,7 +24,14 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
+      
+
+        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Vertical" HorizontalAlignment="Center"  Grid.RowSpan="4">
+            <TextBlock Text="Логотип" FontSize="15" Height="20" Width="auto" Margin="5"></TextBlock>
+        </StackPanel>
+
+
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="Наименование" FontSize="15" Height="20" MinWidth="120" Width="auto" Margin="5"></TextBlock>
             <TextBox Text="{Binding Title}" FontSize="15" Height="20" Width="400"></TextBox>
@@ -36,18 +45,14 @@
             <TextBox Text="{Binding DirectorName}" FontSize="15" Height="20" Width="400"></TextBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" Grid.RowSpan="4">
-            <TextBlock Text="Логотип" FontSize="15" Height="20" Width="auto" Margin="5"></TextBlock>
+        <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Vertical" Grid.RowSpan="4">
+         
             <Image x:Name="LogoImage" Stretch="UniformToFill" MinHeight="50" Height="100" Width="100"
-                   HorizontalAlignment="Center" Margin="5">
-                <Image.Source>
-                    <Binding Path="Logo" TargetNullValue="agents/picture.png"></Binding>
-                </Image.Source>
-            </Image>
-            <Button Content="Изменить" Name="ChangePictureBtn" Click="ChangePictureBtn_Click"></Button>
+                   Source="{Binding Logo, TargetNullValue=agents/picture.png}"/>
+            <Button Content="Изменить" x:Name="ChangePictureBtn" Click="ChangePictureBtn_Click"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal">
             <TextBlock Text="Тип агента" FontSize="15" Height="20" MinWidth="100" Margin="5"></TextBlock>
             <ComboBox FontSize="15" Height="25" Width="100" Name="ComboType1">
 
@@ -60,32 +65,92 @@
             </ComboBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
             <TextBlock Text="Приоритет" FontSize="15" Height="20"  Width="100" Margin="5"></TextBlock>
             <TextBox Text="{Binding Priority}" FontSize="15" Height="20" Width="100"></TextBox>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
             <TextBlock Text="ИНН" FontSize="15" Height="20"  Width="100" Margin="5"></TextBlock>
-            <TextBox Text="{Binding INN}" FontSize="15" Height="20" Width="100"></TextBox>
+            <TextBox Text="{Binding INN}" FontSize="15" Height="20" Width="100" TextChanged="TextBox_TextChanged"></TextBox>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="КПП" FontSize="15" Height="20"  Width="100" Margin="5"></TextBlock>
             <TextBox Text="{Binding KPP}" FontSize="15" Height="20" Width="100"></TextBox>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="6" Orientation="Horizontal">
             <TextBlock Text="Телефон" FontSize="15" Height="20"  Width="100" Margin="5"></TextBlock>
             <TextBox Text="{Binding Phone}" FontSize="15" Height="20" Width="200"></TextBox>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal">
             <TextBlock Text="e-mail" FontSize="15" Height="20"  Width="100" Margin="5"></TextBlock>
             <TextBox Text="{Binding Email}" FontSize="15" Height="20" Width="200"></TextBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
+        <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
             <Button Content="Сохранить" Name="SaveBtn" Click="SaveBtn_Click" Margin="5"></Button>
             <Button Content="Удалить" Name="DeleteBtn" Click="DeleteBtn_Click" Margin="5"
                     Opacity="{Binding ID}"></Button>
         </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Text="История реализации продукции" FontSize="20" Margin="5" ></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
+            <ListView Name="History" Width="300" Height="100" HorizontalAlignment="Right" SelectionMode="Multiple">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{Binding Product.Title}" Margin="5" FontSize="10" Grid.Column="0"></TextBlock>
+
+                            <TextBlock Text="{Binding ProductCount}" Margin="5" FontSize="10" Grid.Column="1"></TextBlock>
+
+                            <TextBlock Text="{Binding SaleDate}" Margin="5" FontSize="10" Grid.Column="2"></TextBlock>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal" >
+            <TextBlock Text="Наименование продукта |" FontSize="20" Margin="5" ></TextBlock>
+            <TextBlock Text="Количество |" FontSize="20" Margin="5"></TextBlock>
+            <TextBlock Text="Дата" FontSize="20" Margin="5"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal">
+            <TextBox x:Name="SearchBoxForComboBox" Height="20" Width="100" FontSize="15" 
+                 TextChanged="SearchBoxForComboBox_TextChanged">
+            </TextBox>
+            <ComboBox SelectionChanged="ComboTitle_SelectionChanged" Height="20" Width="100" FontSize="15" Name="ComboTitle" HorizontalAlignment="Left" Margin="5">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding Title}"></Label>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBox Text=" " Name="CountProductTB" FontSize="15" Height="20" Width="100" Margin="5"></TextBox>
+            <DatePicker  Height="20" Width="100" FontSize="10" Name="StartDate" HorizontalAlignment="Left"></DatePicker>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal">
+            <Button Content="Добавить " Name="AddHistory" Click="AddHistory_Click"></Button>
+            <Button Content="Удалить запись " Name="DelHistory" Click="DelHistory_Click"></Button>
+        </StackPanel>
+
 
     </Grid>
 </Page>

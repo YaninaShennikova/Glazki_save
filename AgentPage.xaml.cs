@@ -59,6 +59,16 @@ namespace Щенникова_ГлазкиСейв
             {
                 currentAgent = currentAgent.OrderByDescending(p => p.Title).ToList();
             }
+
+            if (ComboSort.SelectedIndex == 3)
+            {
+                currentAgent = currentAgent.OrderBy(p => p.Discount).ToList();
+            }
+            if (ComboSort.SelectedIndex == 4)
+            {
+                currentAgent = currentAgent.OrderByDescending(p => p.Discount).ToList();
+            }
+
             if (ComboSort.SelectedIndex == 5)
             {
                 currentAgent = currentAgent.OrderBy(p => p.Priority).ToList();
@@ -264,6 +274,71 @@ namespace Щенникова_ГлазкиСейв
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             Manager1.MainFrame.Navigate(new AddPage(null));
+        }
+
+        private void AgentListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            if (AgentListView.SelectedItems.Count > 1)
+            {
+                ChangePriorityButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ChangePriorityButton.Visibility = Visibility.Hidden;
+            }
+           
+        }
+
+        private void ChangePriorityButton_Click(object sender, RoutedEventArgs e)
+        {
+            int maxPriority = 0;
+            foreach (Agent agent in AgentListView.SelectedItems)
+            {
+                if (agent.Priority > maxPriority)
+                    maxPriority = agent.Priority;
+            }
+
+            SetWindow myWindow = new SetWindow(maxPriority);
+            myWindow.ShowDialog();
+
+            if (string.IsNullOrEmpty(myWindow.TBPriority.Text))
+            {
+                MessageBox.Show("Изменение не произошло");
+            }
+            else
+            {
+                // Проверяем, является ли введенное значение числом
+                if (int.TryParse(myWindow.TBPriority.Text, out int newPriority))
+                {
+                    // Проверяем, является ли новое значение приоритета отрицательным
+                    if (newPriority < 0)
+                    {
+                        MessageBox.Show("Приоритет не может быть отрицательным.");
+                        return; // Выход из метода, если приоритет отрицательный
+                    }
+
+                    foreach (Agent agent in AgentListView.SelectedItems)
+                    {
+                        agent.Priority = newPriority;
+                    }
+
+                    try
+                    {
+                        ShennikovaGlazkiSaveEntities.GetContext().SaveChanges();
+                        MessageBox.Show("Информация сохранена");
+                        UpdateAgent();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректное числовое значение для приоритета.");
+                }
+            }
         }
     }
 }
